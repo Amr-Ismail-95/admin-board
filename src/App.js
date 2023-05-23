@@ -1,65 +1,45 @@
 import "./App.css";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Login from "./Components/Login";
 import Home from "./Components/Home";
-import { BrowserRouter,Routes, Route } from "react-router-dom";
+import { BrowserRouter} from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import { onValue } from "firebase/database";
+import { usersRef } from "./config.js";
+
+
 function App() {
-  const employees = [
-    {
-      name: "Ahmed",
-      username: "Ahmed1989",
-      password: 12345,
-      id: "A",
-      Admin: true,
-      Owner: true,
-    },
-    {
-      name: "Amr",
-      username: "Amr1995",
-      password: 12345,
-      id: "B",
-      Admin: true,
-      Owner: false,
-    },
-    {
-      name: "Eman",
-      username: "Eman1996",
-      password: 12345,
-      id: "C",
-      Admin: true,
-      Owner: false,
-    },
-    {
-      name: "Osama",
-      username: "Osama1984",
-      password: 12345,
-      id: "D",
-      Admin: false,
-      Owner: false,
-    },
-    {
-      name: "Samy",
-      username: "Samy1998",
-      password: 12345,
-      id: "E",
-      Admin: false,
-      Owner: false,
-    },
-    {
-      name: "Sarah",
-      username: "Sarah1997",
-      password: 12345,
-      id: "F",
-      Admin: false,
-      Owner: false,
-    },
-  ];
-
-  const [check, setCheck] = useState(false)
-
+  
+  const [employees, setEmployees] = useState([])
+  const [user, setUser] = useState({name: "Ahmed",
+  username: "Ahmed1989",
+  password: 12345,
+  id: "A",
+  admin: true,
+  })
+useEffect(() => {
+    onValue(usersRef, (snapshot) => {
+      const data = snapshot.val();
+      const dataArray = []
+      for(let key in data){
+        dataArray.push(data[key])
+      }    
+      const newEmployees = dataArray.sort((a,b) => {
+        
+        if (b.admin) {
+          return 1; 
+        } else {
+          return 0;
+        }
+      
+        
+      })
+      setEmployees([...dataArray])
+      
+    });
+}, [])
 
   const userCheck = (user) => {
-    // console.log(user.password === employees[0].password.toString())
 
     for (let employee of employees) {
 
@@ -67,19 +47,22 @@ function App() {
         user.username === employee.username &&
         user.password === employee.password.toString()
       ) {
-        setCheck(true);
+        // console.log(user.username);
+        setUser(employee);
         break;
       }
     }
-    return check;
+
   };
   
   return (
     <BrowserRouter> 
-      <div className="App flex justify-center items-center">
-        <Routes>
-        <Route path="/" element={!check ? <Login employees={employees} userCheck={userCheck}/> : <Home />} />
-        </Routes>
+      <div className="App relative">
+        {!user ? <Login userCheck={userCheck}/> :
+        <>
+        <Navbar user={user} />
+        <Home user={user} employees={user.admin ? employees: []} />
+        </>}
       </div>
     </BrowserRouter>
   );
