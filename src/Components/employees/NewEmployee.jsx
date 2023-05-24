@@ -27,13 +27,17 @@ const [role, setRole] = useState('employee')
             id: uuid(),
             admin: role === 'admin' ? true: false, 
         }
+        if (!newEmployee.name || !newEmployee.username) {
+          closetab()
+          return;
+        }
         writeUserData(newEmployee.name,newEmployee.username, newEmployee.password, newEmployee.id, newEmployee.admin)
         closetab()
     }
 const handleReset = () => closetab()
   return (
-    <form className="flex justify-evenly font-bold" onSubmit={newEmployeeHandler}>
-      <div className="flex flex-col justify-around gap-5">
+    <form className="flex justify-around font-bold" onSubmit={newEmployeeHandler}>
+      <div className="flex flex-col justify-around gap-3">
         <div className="h-1/6 text-xl flex gap-5 items-center justify-between">
           <label className="font-base text-3xl">Name</label>
           <input onChange={handleName} type='text' className="border rounded-md px-1 border-red-950"/>

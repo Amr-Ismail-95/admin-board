@@ -20,22 +20,18 @@ function App() {
 useEffect(() => {
     onValue(usersRef, (snapshot) => {
       const data = snapshot.val();
-      const dataArray = []
+      const getEmployeesArray = []
       for(let key in data){
-        dataArray.push(data[key])
+        getEmployeesArray.push(data[key])
       }    
-      const newEmployees = dataArray.sort((a,b) => {
-        
+      const getEmployees = getEmployeesArray.sort((a,b) => {
         if (b.admin) {
           return 1; 
         } else {
-          return 0;
+          return -1;
         }
-      
-        
       })
-      setEmployees([...dataArray])
-      
+      setEmployees([...getEmployees])
     });
 }, [])
 
