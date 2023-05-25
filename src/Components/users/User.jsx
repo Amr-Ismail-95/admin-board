@@ -42,7 +42,7 @@ const User = ({ user }) => {
   return (
     <form onSubmit={handleSubmit}>
     <div className="w-full h-screen flex justify-center items-center pt-14">
-      <div className="w-5/6 h-5/6 bg-slate-50/70 p-10 flex flex-col justify-evenly">
+      <div className="w-5/6 h-5/6 bg-zinc-50/70 p-10 flex flex-col justify-evenly">
         <h2 className="text-left font-bold pl-4">Welcome, {user.name}</h2>
         <div className="w-full h-1/4  flex items-center justify-around">
           <h2 className="w-1/4 font-bold text-left">Username</h2>

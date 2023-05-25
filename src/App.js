@@ -11,12 +11,12 @@ import { usersRef } from "./config.js";
 function App() {
   
   const [employees, setEmployees] = useState([])
-  const [user, setUser] = useState(null)
-  // {
-  //   admin: true,
-  //   name: 'Amr Ismail',
-  //   id: 12345
-  // }
+  const [user, setUser] = useState({
+    admin: true,
+    name: 'Amr Ismail',
+    id: 12345
+  })
+  
 
 useEffect(() => {
     onValue(usersRef, (snapshot) => {
