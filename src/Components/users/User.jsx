@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
-import { writeUserData } from "../../config";
+import { updateUserData } from "../../config";
 
 const User = ({ user }) => {
   const [checkDisabledUsername, setCheckDisabledUsername] = useState(true);
@@ -28,7 +28,13 @@ const User = ({ user }) => {
   
   const handleSubmit = (event) => {
     event.preventDefault()
-    writeUserData(user.name, newUsername, newPassword?.trim().length>0 ? newPassword: user.password, user.id, user.admin, user.owner)
+    if(!newPassword){
+      setNewPassword(user.password)
+    }
+    if (!newUsername){
+      setNewUsername(user.username)
+    }
+    updateUserData(user.id, user,newUsername, newPassword)
     setCheckDisabledUsername(true)
     setCheckDisabledPassword(true)
   }

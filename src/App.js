@@ -11,12 +11,10 @@ import { usersRef } from "./config.js";
 function App() {
   
   const [employees, setEmployees] = useState([])
-  const [user, setUser] = useState({name: "Ahmed",
-  username: "Ahmed1989",
-  password: 12345,
-  id: "A",
-  admin: true,
+  const [user, setUser] = useState({
+    admin: true
   })
+
 useEffect(() => {
     onValue(usersRef, (snapshot) => {
       const data = snapshot.val();

@@ -35,7 +35,7 @@ const [role, setRole] = useState('employee')
         closetab()
     }
 const handleReset = () => closetab()
-  return (
+return (
     <form className="flex justify-around font-bold" onSubmit={newEmployeeHandler}>
       <div className="flex flex-col justify-around gap-3">
         <div className="h-1/6 text-xl flex gap-5 items-center justify-between">
@@ -55,7 +55,7 @@ const handleReset = () => closetab()
         </div>
       </div>
       <div className="flex flex-col justify-evenly">
-        <button onClick={handleReset} className="bg-rose-500 w-28 text-2xl rounded-full h-1/4 font-bold text-zinc-200 hover:bg-zinc-600 hover:text-rose-500 duration-100 ease-in">cancel</button>
+        <button onClick={handleReset} className="bg-rose-500 w-28 text-2xl rounded-full h-1/4 font-bold text-zinc-200 hover:bg-zinc-600 hover:text-rose-500 duration-100 ease-in">Cancel</button>
         <button className="bg-rose-500 w-28 text-2xl rounded-full h-1/4 font-bold text-zinc-200  hover:bg-zinc-600 hover:text-rose-500 duration-100 ease-in" type="submit">Add</button>
       </div>
     </form>

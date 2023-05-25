@@ -3,28 +3,32 @@ import NewEmployee from './NewEmployee'
 import {TiUserDeleteOutline} from 'react-icons/ti'
 import { deleteUserData } from '../../config'
 
+
 const Employees = ({employees}) => {
 const [addingEmployee, setAddingEmployee] = useState(false)
-const handleAddNewEmployee = () => {
-  setAddingEmployee(true)
-}
-const handleCloseEmployee = () => {setAddingEmployee(false)}
 
+const handleAddNewEmployee = () => setAddingEmployee(true)
+const handleCloseEmployee = () => setAddingEmployee(false)
 const handleDeleteEmployee = (event) => {
-  
+  event.preventDefault()
   deleteUserData(event.target.id)
+}
+const handleTasks = () => {
+  for(let key in employees){
+    console.log(employees[key].tasks?.length);
+  }
 }
 
   return (
     <div className='h-screen font-bold'>
-      <div className='pt-14 h-full bg-slate-50/60 flex items-center justify-center'>
+      <div className='pt-14 h-full bg-slate-50/60 flex min-height-11/12 items-center justify-center'>
         <table className='bg-zinc-200 text-rose-500 w-4/5 h-4/5 border-separate border-red-950 overflow-scroll'>
           <tbody>
           <tr className='border border-red-950'>
           <th className='w-1/6 border border-red-950'>#</th>
             <th className='border border-red-950' >Name</th>
             <th className='border border-red-950' >Role</th>
-          <th className='w-1/6 border border-red-950'>tasks</th>
+          <th className='w-1/6 border border-red-950' onClick={handleTasks}>tasks</th>
           <th className='w-1/6 border border-red-950'>Manage</th>
           </tr>
           {employees.map((employee)=>
@@ -38,7 +42,7 @@ const handleDeleteEmployee = (event) => {
           )}
 
           <tr className='column-4'>
-              {!addingEmployee && <td onClick={handleAddNewEmployee} colSpan={5 } className='cursor-pointer hover:bg-red-950 hover:text-zinc-200 duration-100 ease-in'>Add New Employee</td>}
+              {!addingEmployee && <td onClick={handleAddNewEmployee} colSpan={5} className='cursor-pointer hover:bg-red-950 hover:text-zinc-200 duration-100 ease-in'>Add New Employee</td>}
               {addingEmployee && <td colSpan={5} className='h-2/6'>
               <NewEmployee closetab={handleCloseEmployee}/> 
               </td>}
