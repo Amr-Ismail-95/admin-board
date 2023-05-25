@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import {RiAdminFill, RiEdit2Fill, RiDeleteBin5Fill} from 'react-icons/ri'
 import Tooltip from '../Tooltip'
 import TaskNotes from './TaskNotes'
+
+
 const Task = ({task,admin,notes, pushNotes,taskId,handleDeleteTask}) => {
 
   const [adminVisibility, setAdminVisibility] = useState(false)
   const [editVisibility, setEditVisibility] = useState(false)
   const [deleteVisibility, setDeleteVisibility] = useState(false)
   const [editing, setEditing] = useState(false)
-  const [addedNotes, setAddedNotes] = useState(notes)
 
   const handleAddNote = (notes) => {
-    setAddedNotes(()=>[...addedNotes, notes])
-    pushNotes(notes, taskId)
+    pushNotes(taskId,notes)
   }
 
   const deleteTask = () => {
@@ -49,7 +49,7 @@ const Task = ({task,admin,notes, pushNotes,taskId,handleDeleteTask}) => {
       </div>
     </div>
 
-    {editing && <TaskNotes notes={notes} handlePushingNote={handleAddNote}/>}
+    {editing && <TaskNotes taskId={taskId} notes={notes} handlePushingNote={handleAddNote}/>}
     </div>
   )
 }

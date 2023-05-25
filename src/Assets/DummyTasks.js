@@ -4,6 +4,9 @@ export const tasks = [
         id: '1',
         task: 'Clean the desk',
         admin: 'hamada',
+        adminId: '',
+        handler: '',
+        handlerId: '12345',
         notes: []
     },
     {

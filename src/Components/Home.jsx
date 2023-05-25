@@ -10,7 +10,7 @@ const Home = ({ user, employees }) => {
   const routes = user.admin ? (
     <Routes>
       <Route path="/" element={<User user={user}/>} />
-      <Route path="/tasks" element={<Tasks username={user.name} />} />
+      <Route path="/tasks" element={<Tasks user={user} />} />
       <Route path="/requests" element={<Requests />} />
       <Route path="/employees" element={<Employees employees={employees} />} />
       <Route path="/groups" element={<Groups />} />
@@ -18,7 +18,7 @@ const Home = ({ user, employees }) => {
   ) : (
     <Routes>
       <Route path="/" element={<User user={user}/>} />
-      <Route path="/tasks" element={<Tasks />} />
+      <Route path="/tasks" element={<Tasks user={user}/>} />
     </Routes>
   );
   return <div className="text-3xl font-500 overflow-x-hidden">{routes}</div>;

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {v4 as uuid} from 'uuid'
 
-const NewTask = ({handleFinishAdding, name, addTask}) => {
+const NewTask = ({handleFinishAdding, user, addTask}) => {
 
     const [addedTask, setAddedTask] = useState('')
     const handleCancel = () => handleFinishAdding(  )
@@ -12,7 +12,11 @@ const NewTask = ({handleFinishAdding, name, addTask}) => {
             id: uuid(),
             task: addedTask,
             notes: [],
-            admin: name
+            selfAdded: true,
+            admin: user.name,
+            adminId: user.id,
+            handler: user.name,
+            handlerId: user.id,
         }
         if (!newTask.task) {
             handleFinishAdding()
