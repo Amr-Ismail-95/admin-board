@@ -1,25 +1,31 @@
 import React, { useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+const Login = ({handleSignin}) => {
 
-const Login = ({userCheck }) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isInvalid, setIsInvalid] = useState(false);
-
-  const usernameHandler = (event) => setUsername(event.target.value);
+  
+  const emailHandler = (event) => setEmail(event.target.value);
   const passwordHandler = (event) => setPassword(event.target.value);
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const user = {
-      username: username,
-      password: password,
-    };
-    userCheck(user);
-    if (!userCheck(user)) {
-      setIsInvalid(true);
-    } else {
-      setIsInvalid(false);
-    }
+  
+  const auth = getAuth();
+
+  const submitHandler = (event) => {
+    event.preventDefault()
+    signInWithEmailAndPassword(auth, email, password)
+    .then((res)=> {
+      handleSignin(res.user.uid)
+    })
+  
+    .catch(()=>setIsInvalid(true))
+
   };
+
+  // const submitHandler = async (e) => {
+  //   e.preventDefault()
+  //   console.log(getAdmin('ph3nZn0Ct1Rg25S78bUPIPEUXIa2')) 
+  // }
 
   const labelClass = "block text-center";
   const inputClass =
@@ -35,10 +41,10 @@ const Login = ({userCheck }) => {
           <h2 className="text-center font-bold text-3xl">Please Login</h2>
           <label className={labelClass}>
             <input
-              onChange={usernameHandler}
+              onChange={emailHandler}
               className={inputClass}
               type="text"
-              placeholder="Username"
+              placeholder="Please enter your Email"
             />
           </label>
           <label className={labelClass}>

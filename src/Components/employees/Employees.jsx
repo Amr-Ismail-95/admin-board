@@ -1,22 +1,32 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import NewEmployee from './NewEmployee'
 import {TiUserDeleteOutline} from 'react-icons/ti'
-import { deleteUserData } from '../../config'
+import { getUsersData } from '../../config'
+import { getAuth } from 'firebase/auth'
 
+import { usersGroup } from '../../config'
 
-const Employees = ({employees}) => {
+const Employees = () => {
+
 const [addingEmployee, setAddingEmployee] = useState(false)
-
+const [employees, setEmployees] = useState([])
 const handleAddNewEmployee = () => setAddingEmployee(true)
 const handleCloseEmployee = () => setAddingEmployee(false)
-const handleDeleteEmployee = (event) => {
-  event.preventDefault()
-  deleteUserData(event.target.id)
+
+
+const handleDeleteEmployee = (uid) => {
+  
 }
+
+
+useEffect(() => {
+    getUsersData(setEmployees)
+}, [getUsersData])
+
+const handleAddEmployee = (newEmployee) => setEmployees((employees)=>[...employees, newEmployee])
+// console.log(employees);
 const handleTasks = () => {
-  for(let key in employees){
-    console.log(employees[key].tasks?.length);
-  }
+
 }
 
   return (
@@ -37,14 +47,14 @@ const handleTasks = () => {
             <td className='border border-red-950'>{employee.name}</td>
             <td className='border border-red-950'>{employee.admin? 'Admin': 'Employee'}</td>
             <td className='border border-red-950'></td>
-            <td className='border border-red-950'>{employee.admin? '' : <TiUserDeleteOutline className='m-auto cursor-pointer hover:text-red-950 duration-100 ease-in' onClick={handleDeleteEmployee} id={employee.id}/> }</td>
+            <td className='border border-red-950'>{employee.admin? '' : <TiUserDeleteOutline className='m-auto cursor-pointer hover:text-red-950 duration-100 ease-in' onClick={()=>handleDeleteEmployee(employee.id)} id={employee.id}/> }</td>
           </tr>
           )}
 
           <tr className='column-4'>
               {!addingEmployee && <td onClick={handleAddNewEmployee} colSpan={5} className='cursor-pointer hover:bg-red-950 hover:text-zinc-200 duration-100 ease-in'>Add New Employee</td>}
               {addingEmployee && <td colSpan={5} className='h-2/6'>
-              <NewEmployee closetab={handleCloseEmployee}/> 
+              <NewEmployee handleAddEmployee={handleAddEmployee} closetab={handleCloseEmployee}/> 
               </td>}
           </tr>
 

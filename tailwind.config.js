@@ -23,6 +23,7 @@ module.exports = {
         '1/2': '50%',
         '22': '21.6rem',
         '96': '24rem',
+        '20': '5rem'
       },
       minWidth: {
         '8': '8rem',

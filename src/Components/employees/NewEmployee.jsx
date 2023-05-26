@@ -1,37 +1,62 @@
 import React, { useState } from "react";
-import { v4 as uuid } from 'uuid';
-import { writeUserData } from '../../config'
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { addOrUpdateUser } from "../../config";
+// import { v4 as uuid } from 'uuid';
 
-const NewEmployee = ({closetab}) => {
+
+const NewEmployee = ({closetab, handleAddEmployee}) => {
 const [name, setName] = useState('')
-const [username, setUsername] = useState('')
-const [role, setRole] = useState('employee')
+const [email, setEmail] = useState('')
+const [role, setRole] = useState(false)
 
     const handleName = (event) => {
         setName(event.target.value)
     }
 
-    const handleUsername = (event) => {
-        setUsername(event.target.value)
+    const handleEmail = (event) => {
+        setEmail(event.target.value)
     }
 
     const handleRole = (event) => {
         setRole(event.target.value)
+        console.log(event.target.value);
     }
     const newEmployeeHandler = (event) => {
         event.preventDefault()
         const newEmployee = {
             name: name,
-            username: username,
+            email: email,
             password: 12345,
-            id: uuid(),
-            admin: role === 'admin' ? true: false, 
+            admin: role,
         }
-        if (!newEmployee.name || !newEmployee.username) {
+        if (!newEmployee.name || !newEmployee.email) {
+          console.log(newEmployee.name, newEmployee.email);
           closetab()
           return;
         }
-        writeUserData(newEmployee.name,newEmployee.username, newEmployee.password, newEmployee.id, newEmployee.admin)
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, email, 123456)
+        .then((userCredential) => {
+          const userId = userCredential.user.uid
+          if(name.length < 3){
+            alert('Username should at least be 3 characters')
+          } else {
+            updateProfile(auth.currentUser, {
+              displayName: name,
+            })
+            console.log(role);
+            addOrUpdateUser({
+              name: name,
+              id: userId,
+              email: email,
+              admin: role
+            })
+          }
+          handleAddEmployee(newEmployee)
+        })
+        .catch((error) => console.log(error));
+
+
         closetab()
     }
 const handleReset = () => closetab()
@@ -43,14 +68,14 @@ return (
           <input onChange={handleName} type='text' className="border rounded-md px-1 border-red-950"/>
         </div>
         <div className="h-1/6 text-xl flex gap-5 items-center justify-between">
-          <label className="font-base text-3xl">Username</label>
-          <input onChange={handleUsername} type="text" className="border rounded-md px-1 border-red-950"/>
+          <label className="font-base text-3xl">Email</label>
+          <input onChange={handleEmail} type="text" className="border rounded-md px-1 border-red-950"/>
         </div>
         <div className="h-1/6 text-xl flex gap-5 items-center justify-between">
           <label className="font-base text-3xl">Role</label>
-          <select onChange={handleRole} defaultValue={'employee'} name='roles' className="w-65 border rounded-md px-1 border-red-950">
-            <option value="admin">admin</option>
-            <option value="employee">employee</option>
+          <select onChange={handleRole} defaultValue={false} name='roles' className="w-65 border rounded-md px-1 border-red-950">
+            <option value="true">admin</option>
+            <option value="false">employee</option>
           </select>
         </div>
       </div>
