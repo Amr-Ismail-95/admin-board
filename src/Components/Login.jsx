@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+
 const Login = ({handleSignin}) => {
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,10 +25,6 @@ const Login = ({handleSignin}) => {
 
   };
 
-  // const submitHandler = async (e) => {
-  //   e.preventDefault()
-  //   console.log(getAdmin('ph3nZn0Ct1Rg25S78bUPIPEUXIa2')) 
-  // }
 
   const labelClass = "block text-center";
   const inputClass =

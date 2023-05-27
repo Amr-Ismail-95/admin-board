@@ -5,7 +5,6 @@ import Home from "./Components/Home";
 import { BrowserRouter} from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import {getUser} from './config'
-import { getAuth } from "firebase/auth";
 
 function App() {
 
@@ -14,9 +13,6 @@ function App() {
   const handleUser = (data) => {
     getUser(data, setUser)
   }
-  const auth = getAuth();
-  const currentUser = auth.currentUser;
-  console.log(currentUser);
 
   return (
     <BrowserRouter>

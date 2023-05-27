@@ -2,9 +2,7 @@ import React,{useState, useEffect} from 'react'
 import NewEmployee from './NewEmployee'
 import {TiUserDeleteOutline} from 'react-icons/ti'
 import { getUsersData } from '../../config'
-import { getAuth } from 'firebase/auth'
-
-import { usersGroup } from '../../config'
+import { deleteUserData } from '../../config'
 
 const Employees = () => {
 
@@ -15,13 +13,16 @@ const handleCloseEmployee = () => setAddingEmployee(false)
 
 
 const handleDeleteEmployee = (uid) => {
-  
+  let newArray = employees.filter((employee)=>employee.id !== uid)
+  deleteUserData(uid)
+  setEmployees([...newArray])
+
 }
 
 
 useEffect(() => {
     getUsersData(setEmployees)
-}, [getUsersData])
+}, [getUsersData,handleDeleteEmployee])
 
 const handleAddEmployee = (newEmployee) => setEmployees((employees)=>[...employees, newEmployee])
 // console.log(employees);
