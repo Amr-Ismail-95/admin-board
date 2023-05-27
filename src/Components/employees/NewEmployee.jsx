@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { addOrUpdateUser } from "../../config";
-// import { v4 as uuid } from 'uuid';
 
 
 const NewEmployee = ({closetab, handleAddEmployee}) => {

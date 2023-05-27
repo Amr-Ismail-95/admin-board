@@ -13,7 +13,7 @@ if (user.admin){
             <div className="text-3xl font-500 overflow-x-hidden">
               <Routes>
                   <Route path="/" element={<User user={user}/>} />
-                  {/* <Route path="/tasks" element={<Tasks />} /> */}
+                  <Route path="/tasks" element={<Tasks user = {user}/>} />
                   <Route path="/requests" element={<Requests />} />
                   <Route path="/employees" element={<Employees />} />
                   <Route path="/groups" element={<Groups />} />
@@ -25,7 +25,7 @@ if (user.admin){
     <div className="text-3xl font-500 overflow-x-hidden">
       <Routes>
         <Route path="/" element={<User user={user}/>} />
-        {/* <Route path="/tasks" element={<Tasks/>} /> */}
+        <Route path="/tasks" element={<Tasks user={user}/>} />
         </Routes>
     </div>
   )
