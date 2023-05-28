@@ -1,14 +1,24 @@
 import React, { useState } from 'react'
-import {RiEdit2Fill, RiDeleteBin5Fill, RiBarChartGroupedLine} from 'react-icons/ri'
+import {RiEdit2Fill, RiDeleteBin5Fill} from 'react-icons/ri'
 import Tooltip from '../Tooltip'
 import GroupEditing from './GroupEditing'
+import { addOrUpdateUser } from '../../config'
 
 
-
-const Group = ({groupName,updateEmployees,freeEmps,employees, groupedEmployees}) => {
+const Group = ({groupName,updateEmployees,deleteGroupFromArray, freeEmps,employees, groupedEmployees}) => {
     const [editVisibility, setEditVisibility] = useState(false)
     const [deleteVisibility, setDeleteVisibility] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
+
+    const deleteGroup = () => {
+        employees.forEach((employee)=>{
+            if(employee.group === groupName ){
+                employee.group = false
+                addOrUpdateUser(employee)
+                deleteGroupFromArray()
+            }
+        })
+    }
     
     return (
     <div className=' flex flex-col gap-3 p-4' >
@@ -22,7 +32,7 @@ const Group = ({groupName,updateEmployees,freeEmps,employees, groupedEmployees})
                     }
                 </div>
                 <div className=' w-auto h-full flex items-center relative' onMouseEnter={()=>{setDeleteVisibility(true)}} onMouseLeave={()=>{setDeleteVisibility(false)}}>
-                    <RiDeleteBin5Fill className='cursor-pointer' onClick={()=>{}}/>
+                    <RiDeleteBin5Fill className='cursor-pointer' onClick={deleteGroup}/>
                     {deleteVisibility && 
                         <Tooltip text='Delete Group' /> 
                     }

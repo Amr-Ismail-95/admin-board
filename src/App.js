@@ -8,24 +8,23 @@ import {getUser} from './config'
 
 function App() {
 
-  const [user, setUser] = useState({
-    admin: true,
-    email: 'amr@amr.com',
-    id: 'EgspipWQ3LN9rcKEo5hUlPU2WEQ2',
-    name: 'Amr Ismail'
-  })
+  const [user, setUser] = useState(null)
   
   const handleUser = (data) => {
     getUser(data, setUser)
   }
+  const handleLogout = (user) => {
+    setUser(null)
+  }
 
+  
   return (
     <BrowserRouter>
       <div className="App relative">
         {!user ? <Login handleSignin={handleUser}/> :
         <>
         <Navbar user={user} />
-        <Home user={user} />
+        <Home logout={handleLogout} user={user} />
         </>}
       </div>
     </BrowserRouter>

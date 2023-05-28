@@ -30,7 +30,7 @@ const [role, setRole] = useState(false)
             group: false
         }
         if (!newEmployee.name || !newEmployee.email) {
-          console.log(newEmployee.name, newEmployee.email);
+          // console.log(newEmployee.name, newEmployee.email);
           closetab()
           return;
         }
@@ -49,7 +49,8 @@ const [role, setRole] = useState(false)
               name: name,
               id: userId,
               email: email,
-              admin: role
+              admin: role,
+              group: false,
             })
           }
           handleAddEmployee(newEmployee)

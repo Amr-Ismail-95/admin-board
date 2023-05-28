@@ -4,31 +4,21 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = ({handleSignin}) => {
 
-
+  const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isInvalid, setIsInvalid] = useState(false);
   
   const emailHandler = (event) => setEmail(event.target.value);
   const passwordHandler = (event) => setPassword(event.target.value);
-  
-  const auth = getAuth();
-
   const submitHandler = (event) => {
     event.preventDefault()
     signInWithEmailAndPassword(auth, email, password)
     .then((res)=> {
       handleSignin(res.user.uid)
     })
-  
     .catch(()=>setIsInvalid(true))
-
   };
-
-
-  const labelClass = "block text-center";
-  const inputClass =
-    "border rounded-md border-cyan-500 w-3/4 h-8 text-base focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-cyan-800";
 
   return (
     <div className="h-full flex items-center justify-center">
@@ -38,18 +28,18 @@ const Login = ({handleSignin}) => {
           className=" h-full flex flex-col justify-around"
         >
           <h2 className="text-center font-bold text-3xl">Please Login</h2>
-          <label className={labelClass}>
+          <label className='block text-center'>
             <input
               onChange={emailHandler}
-              className={inputClass}
+              className='border rounded-md border-cyan-500 w-3/4 h-8 text-base focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-cyan-800'
               type="text"
               placeholder="Please enter your Email"
             />
           </label>
-          <label className={labelClass}>
+          <label className='block text-center'>
             <input
               onChange={passwordHandler}
-              className={inputClass}
+              className='border rounded-md border-cyan-500 w-3/4 h-8 text-base focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-cyan-800'
               type="password"
               placeholder="Password"
             />

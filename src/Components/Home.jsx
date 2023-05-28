@@ -6,14 +6,16 @@ import Requests from "./Requests/Requests";
 import Employees from "./employees/Employees";
 import Groups from './Groups/Groups'
 
-const Home = ({ user }) => {
+const Home = ({ user, logout }) => {
+
+  const handleLogout = () => logout()
 
 if (user.admin){
   return (
-            <div className="text-3xl font-500 overflow-x-hidden">
+            <div className="text-3xl font-500 overflow-x-hidden relative">
               <Routes>
-                  <Route path="/" element={<User user={user}/>} />
-                  <Route path="/tasks" element={<Tasks user = {user}/>} />
+                  <Route path="/" element={<User handleLogout={handleLogout} user={user}/>} />
+                  <Route path="/tasks" element={<Tasks  user={user}/>} />
                   <Route path="/requests" element={<Requests user={user}/>} />
                   <Route path="/employees" element={<Employees user={user} />} />
                   <Route path="/groups" element={<Groups />} />
@@ -24,9 +26,9 @@ if (user.admin){
   return (
     <div className="text-3xl font-500 overflow-x-hidden">
       <Routes>
-        <Route path="/" element={<User user={user}/>} />
-        <Route path="/tasks" element={<Tasks user={user}/>} />
-        </Routes>
+        <Route path="/" element={<User handleLogout={handleLogout} user={user}/>} />
+        <Route path="/tasks" element={<Tasks  user={user}/>} />
+      </Routes>
     </div>
   )
 }

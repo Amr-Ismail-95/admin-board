@@ -3,7 +3,7 @@ import {RiDeleteBin5Fill} from 'react-icons/ri'
 import { handleAddNotes, getNotes, handleDeleteChosenNote } from '../../config'
 import {v4 as uuid} from 'uuid'
 
-const TaskNotes = ({taskId,userId, notes, handlePushingNote}) => {
+const TaskNotes = ({taskId,userId}) => {
 
     
     const [note, setNote] = useState('')
@@ -11,12 +11,8 @@ const TaskNotes = ({taskId,userId, notes, handlePushingNote}) => {
 
     useEffect(() => {
     getNotes(userId, taskId, setMyNotes)
-        // console.log(userId);
-        // console.log(taskId);
 }, [myNotes.length])
-    // console.log(notes);
 
-    // handleDeleteNote(userId, taskId, "40c7f1bf-1795-45bd-a9a0-516e117d410c")
     const handleChangeNote = (event) => {
         setNote(event.target.value)
         

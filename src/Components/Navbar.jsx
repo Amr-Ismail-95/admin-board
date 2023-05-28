@@ -54,6 +54,8 @@ const Navbar = ({ user }) => {
       </NavLink>
     </>
   );
+
+  
   return (
     <nav className="w-full bg-red-950 h-14 flex items-center justify-evenly absolute top-0">
       {links}
