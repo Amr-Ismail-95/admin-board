@@ -17,7 +17,6 @@ function App() {
     setUser(null)
   }
 
-  
   return (
     <BrowserRouter>
       <div className="App relative">

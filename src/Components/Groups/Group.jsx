@@ -15,7 +15,7 @@ const Group = ({groupName,updateEmployees,deleteGroupFromArray, freeEmps,employe
             if(employee.group === groupName ){
                 employee.group = false
                 addOrUpdateUser(employee)
-                deleteGroupFromArray()
+                deleteGroupFromArray(groupName)
             }
         })
     }

@@ -12,7 +12,7 @@ const Home = ({ user, logout }) => {
 
 if (user.admin){
   return (
-            <div className="text-3xl font-500 overflow-x-hidden relative">
+            <div className="text-3xl font-500 overflow-x-hidden">
               <Routes>
                   <Route path="/" element={<User handleLogout={handleLogout} user={user}/>} />
                   <Route path="/tasks" element={<Tasks  user={user}/>} />
@@ -28,6 +28,7 @@ if (user.admin){
       <Routes>
         <Route path="/" element={<User handleLogout={handleLogout} user={user}/>} />
         <Route path="/tasks" element={<Tasks  user={user}/>} />
+        <Route path="/*" element={<User handleLogout={handleLogout} user={user}/>} />
       </Routes>
     </div>
   )
