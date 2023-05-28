@@ -27,6 +27,12 @@
 .App-link {
   color: #61dafb;
 }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  
+
+}
+
 
 
 

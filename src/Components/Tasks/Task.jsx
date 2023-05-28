@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import {RiAdminFill, RiEdit2Fill, RiDeleteBin5Fill} from 'react-icons/ri'
 import Tooltip from '../Tooltip'
 import TaskNotes from './TaskNotes'
+import { deleteTaskData } from '../../config'
+import {v4 as uuid} from 'uuid'
 
-
-const Task = ({task,admin,notes,userId, pushNotes,taskId,handleDeleteTask}) => {
+const Task = ({handlerefresh,user, task,admin, adminId,userId, pushNotes,taskId,selfAdded}) => {
 
   const [adminVisibility, setAdminVisibility] = useState(false)
   const [editVisibility, setEditVisibility] = useState(false)
@@ -16,7 +17,16 @@ const Task = ({task,admin,notes,userId, pushNotes,taskId,handleDeleteTask}) => {
   }
 
   const deleteTask = () => {
-    handleDeleteTask(taskId)
+    const request = {
+      id: uuid(),
+      requester: user,
+      requesterId: userId,
+      adminId: adminId,
+      taskId: taskId,
+      taskBody: task,
+    }
+    deleteTaskData(userId,taskId,selfAdded,request)
+    handlerefresh()
   }
 
   const handleEditing = () => {
@@ -43,13 +53,13 @@ const Task = ({task,admin,notes,userId, pushNotes,taskId,handleDeleteTask}) => {
       <div className=' w-auto h-full flex items-center relative' onMouseEnter={()=>{setDeleteVisibility(true)}} onMouseLeave={()=>setDeleteVisibility(false)}>
       <RiDeleteBin5Fill className='cursor-pointer' onClick={deleteTask}/>
       {deleteVisibility && 
-        <Tooltip text={'Delete'} />
+        <Tooltip text={'Delete'} /> 
       }
       </div>
       </div>
     </div>
 
-    {editing && <TaskNotes taskId={taskId} userId={userId} notes={notes} handlePushingNote={handleAddNote}/>}
+    {editing && <TaskNotes taskId={taskId} userId={userId} handlePushingNote={handleAddNote}/>}
     </div>
   )
 }

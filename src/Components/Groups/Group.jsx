@@ -1,29 +1,38 @@
-// import React,{useState} from 'react'
-// import RiFolderInfoFill from 'react-icons/ti'
-// import Tooltip from '../Tooltip'
+import React, { useState } from 'react'
+import {RiEdit2Fill, RiDeleteBin5Fill, RiBarChartGroupedLine} from 'react-icons/ri'
+import Tooltip from '../Tooltip'
+import GroupEditing from './GroupEditing'
 
-// const Group = () => {
 
-//   const [tooltipActive, setTooltipActive] = useState(false)
 
-//   return (
-//     <div className='w-full min-h-20 bg-red-950 flex flex-col gap-2'>
-//       <div className='bg-red-950 text-zinc-200 px-10 flex justify-between items-center texl-xl font-bold text-left h-20'>
-//         <h2>Group title</h2>
-//         <h2>Number of members: 3</h2>
-//         <div className='relative rounded-full bg-zinc-200 text-red-950 w-9 text-center cursor-pointer' onMouseEnter={()=>{setTooltipActive(true)}} onMouseLeave={()=>setTooltipActive(false)}>
-//         <h2>i</h2>
-//         {tooltipActive && <Tooltip text='Group info' />}
-//         </div>
-//       </div>
+const Group = ({groupName, freeEmployees, groupedEmployees, refresh}) => {
+    const [editVisibility, setEditVisibility] = useState(false)
+    const [deleteVisibility, setDeleteVisibility] = useState(false)
+    const [isEditing, setIsEditing] = useState(false)
+    
+    return (
+    <div className=' flex flex-col gap-3 p-4' >
+        <div className='bg-red-950 min-h-16 flex'>
+            <h3 className=' w-4/6 my-auto text-left p-2  text-zinc-200 text-4xl font-bold'>{groupName}</h3>
+            <div className=' text-zinc-200  w-2/6 flex justify-evenly items-center'>
+                <div className=' w-auto h-full flex items-center relative' onMouseEnter={()=>{setEditVisibility(true)}} onMouseLeave={()=>{setEditVisibility(false)}}>
+                    <RiEdit2Fill onClick={()=>{setIsEditing(editing => !editing)}} className='cursor-pointer'/>
+                    {editVisibility && 
+                        <Tooltip text='Edit Group'/>
+                    }
+                </div>
+                <div className=' w-auto h-full flex items-center relative' onMouseEnter={()=>{setDeleteVisibility(true)}} onMouseLeave={()=>{setDeleteVisibility(false)}}>
+                    <RiDeleteBin5Fill className='cursor-pointer' onClick={()=>{}}/>
+                    {deleteVisibility && 
+                        <Tooltip text='Delete Group' /> 
+                    }
+                </div>
+            </div>
+        </div>
+        {isEditing && <GroupEditing groupName={groupName} free={freeEmployees} grouped={groupedEmployees} refresh={refresh}/>}
 
-//       <div className='w-full mx-auto h-96 bg-green-500 p-4 flex justify-evenly'> 
-//         <div className='bg-zinc-200 w-2/5 h-full'></div>
-//         <div className='bg-zinc-200 w-2/5 h-full'></div>
-//       </div>
+    </div>
+  )
+}
 
-//     </div>
-//   )
-// }
-
-// export default Group
+export default Group

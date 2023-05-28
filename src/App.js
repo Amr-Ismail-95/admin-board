@@ -8,7 +8,12 @@ import {getUser} from './config'
 
 function App() {
 
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({
+    admin: true,
+    email: 'amr@amr.com',
+    id: 'EgspipWQ3LN9rcKEo5hUlPU2WEQ2',
+    name: 'Amr Ismail'
+  })
   
   const handleUser = (data) => {
     getUser(data, setUser)

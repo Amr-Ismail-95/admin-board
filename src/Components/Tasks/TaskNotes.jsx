@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {RiDeleteBin5Fill} from 'react-icons/ri'
-import { handleUpdateorAddNotes } from '../../config'
+import { handleAddNotes, getNotes, handleDeleteChosenNote } from '../../config'
 import {v4 as uuid} from 'uuid'
 
 const TaskNotes = ({taskId,userId, notes, handlePushingNote}) => {
@@ -10,14 +10,13 @@ const TaskNotes = ({taskId,userId, notes, handlePushingNote}) => {
     const [myNotes, setMyNotes] = useState([])
 
     useEffect(() => {
-    const taskNotes = []
-    if(notes){
-        for (let key in notes){taskNotes.push(notes[key])}
-        setMyNotes([...taskNotes])
-    } else {setMyNotes([])}
-}, [notes.length])
+    getNotes(userId, taskId, setMyNotes)
+        // console.log(userId);
+        // console.log(taskId);
+}, [myNotes.length])
     // console.log(notes);
 
+    // handleDeleteNote(userId, taskId, "40c7f1bf-1795-45bd-a9a0-516e117d410c")
     const handleChangeNote = (event) => {
         setNote(event.target.value)
         
@@ -27,10 +26,13 @@ const TaskNotes = ({taskId,userId, notes, handlePushingNote}) => {
             id: uuid(),
             body: note,
         }
-        handleUpdateorAddNotes(userId, taskId, newNote)
+        handleAddNotes(userId, taskId, newNote)
+        getNotes(userId, taskId, setMyNotes)
     }
 
     const handleDeleteNote = (id) => {
+        handleDeleteChosenNote(userId, taskId, id)
+        getNotes(userId, taskId, setMyNotes)
     }
 
   return (
