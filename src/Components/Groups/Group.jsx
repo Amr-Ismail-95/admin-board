@@ -5,7 +5,7 @@ import GroupEditing from './GroupEditing'
 
 
 
-const Group = ({groupName, freeEmployees, groupedEmployees, refresh}) => {
+const Group = ({groupName,updateEmployees,freeEmps,employees, groupedEmployees}) => {
     const [editVisibility, setEditVisibility] = useState(false)
     const [deleteVisibility, setDeleteVisibility] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
@@ -29,7 +29,7 @@ const Group = ({groupName, freeEmployees, groupedEmployees, refresh}) => {
                 </div>
             </div>
         </div>
-        {isEditing && <GroupEditing groupName={groupName} free={freeEmployees} grouped={groupedEmployees} refresh={refresh}/>}
+        {isEditing && <GroupEditing groupName={groupName} freeEmps={freeEmps} employees={employees} updateEmployees={updateEmployees} grouped={groupedEmployees} />}
 
     </div>
   )
